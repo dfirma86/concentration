@@ -1,0 +1,20 @@
+.Card {
+	display: flex;
+	position: relative;
+	height: 6rem;
+	width: 6rem;
+	border-radius: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	background-color: #333333;
+	margin: 0.5rem;
+}
+
+.Card:hover {
+	cursor: pointer;
+}
+
+.Card i {
+	color: white;
+	font-size: 3rem;
+}
