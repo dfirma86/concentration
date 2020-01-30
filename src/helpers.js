@@ -12,11 +12,9 @@ function shuffle(arr) {
 }
 
 function toSeconds(num) {
-	// seconds conversion
-	return num
-		.toString()
-		.split('')
-		.splice(-3, 0, '.')
+	let numArr = num.toString().split('')
+	numArr.splice(-3, 0, '.')
+	return numArr.join('')
 }
 
 export { shuffle, toSeconds }

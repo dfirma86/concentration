@@ -1,4 +1,4 @@
-.YouWinModal {
+.MessageModal {
 	display: flex;
 	justify-content: center;
 	/* align-items: center; */
@@ -14,7 +14,7 @@
 .messageBox {
 	margin-top: 8.1rem;
 	background-color: rgb(95, 25, 15, 0.5);
-	background-color: black;
+	background-color: red;
 	height: 27rem;
 	width: 27rem;
 	border-radius: 0.5rem;
@@ -22,9 +22,21 @@
 	line-height: 6.5rem;
 }
 .button-container {
-	display: flex;
-	justify-content: space-evenly;
+	/* display: flex; */
+	/* justify-content: space-evenly; */
 }
 .modal-message {
+	font-family: 'Titillium Web', sans-serif;
 	font-size: 3rem;
+	color: white;
+	line-height: 6.4rem;
+}
+
+i:hover {
+	cursor: pointer;
+}
+
+.messageBox > div {
+	background: green;
+	size: 9rem;
 }

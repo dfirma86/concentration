@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Card from './Card'
-import YouWinModal from './YouWinModal'
+import MessageModal from './MessageModal'
 import { shuffle } from './helpers'
 import uuid from 'uuid/v4'
 import './App.css'
@@ -23,21 +23,27 @@ class App extends Component {
 			{ name: 'github', faClass: 'fab fa-github' }
 		]
 	}
+
 	constructor(props) {
 		super(props)
 		this.state = {
 			unmatchedCards: [],
 			flippedCards: [],
-			isGameOver: true,
+			isGameOver: false,
 			flipCount: 0,
 			gameStartTime: '',
 			gameEndTime: '',
-			gameTime: 0
+			gameTime: 0,
+			gamesPlayed: 0
 		}
 		this.flip = this.flip.bind(this)
 		this.handleReset = this.handleReset.bind(this)
 	}
-	startNewGame(gameMode) {
+
+	async startNewGame(gameMode) {
+		// DOWNFLIPS ALL FLIPPED CARDS FOR NEW GAME
+
+		console.log('isGameOver? line50', this.state.isGameOver)
 		let newCards = [
 			...this.props.cardFaces.slice(0, 8),
 			...this.props.cardFaces.slice(0, 8)
@@ -49,7 +55,7 @@ class App extends Component {
 			isDisabled: false
 		}))
 		this.setState({
-			unmatchedCards: shuffle(newCards),
+			unmatchedCards: newCards, //shuffle(newCards),
 			isGameOver: false,
 			flipCount: 0,
 			gameStartTime: '',
@@ -57,9 +63,11 @@ class App extends Component {
 			gameTime: 0
 		})
 	}
+
 	componentDidMount() {
 		this.startNewGame()
 	}
+
 	componentDidUpdate() {
 		let isMatchedArr = this.state.unmatchedCards.map(
 			(card) => card.isMatched
@@ -70,11 +78,13 @@ class App extends Component {
 				return {
 					gameEndTime: endTime,
 					gameTime: endTime - this.state.gameStartTime,
+					gamesPlayed: st.gamesPlayed + 1,
 					isGameOver: true
 				}
 			})
 		}
 	}
+
 	async flip(name, id) {
 		let updatedFlippedCards = []
 		let updatedCards = this.state.unmatchedCards.map((card) => {
@@ -90,7 +100,6 @@ class App extends Component {
 			flippedCards: [...st.flippedCards, ...updatedFlippedCards],
 			flipCount: st.flipCount + 1
 		}))
-
 		// HANDLE FLIPPED CARDS
 		if (this.state.flippedCards.length === 2) {
 			// IF 2 CARDS AREN'T DRAWN YET
@@ -127,15 +136,28 @@ class App extends Component {
 			}
 		}
 	}
+
 	startTimer() {
 		this.setState({ gameStartTime: new Date() })
 	}
+
 	handleReset() {
-		this.startNewGame()
+		//FLIP ALL ALL CARDS
+		this.setState((st) => ({
+			unmatchedCards: st.unmatchedCards.map((card) => {
+				card.isFlipped = false
+				card.isMatched = false
+				return card
+			})
+		}))
+		setTimeout(() => {
+			this.startNewGame()
+		}, 1000)
 	}
+
 	render() {
 		let cards = this.state.unmatchedCards.map((card) => (
-			<Card
+			<Card // CLEAN
 				info={card}
 				key={card.id}
 				gameState={this.state}
@@ -145,27 +167,37 @@ class App extends Component {
 		))
 		return (
 			<div className='App'>
-				<YouWinModal
+				<MessageModal //refactor! condense to single prop 'state' and update corresponding lines of code
 					gameState={this.state.isGameOver}
 					time={this.state.gameTime}
 					reset={this.handleReset}
+					gamesPlayed={this.state.gamesPlayed}
 				/>
-				<div className='gameContainer'>
+				<div className='game-container'>
+					<div className='banner-container'></div>
 					<h1>CONCENTRATION</h1>
-					<div className='cardContainer'>{cards}</div>
-					<div className='buttonContainer'>
-						<div
-							className='iconButton reset'
+					<div className='cards-container'>{cards}</div>
+					<div className='button-container'>
+						<i
+							className='fas fa-power-off'
 							onClick={this.handleReset}
-						>
-							<i className='fas fa-power-off'></i>
-						</div>
-						<div className='iconButton settings'>
-							<i className='fas fa-cog'></i>
-						</div>
-						<div className='iconButton aboutMe'>
-							<i className='fas fa-at'></i>
-						</div>
+						/>
+
+						<i
+							className='fas fa-cog'
+							onClick={() =>
+								alert('STOP PUSHING BUTTONS THAT DONT WORK!!')
+							}
+						/>
+
+						<i
+							className='fas fa-at'
+							onClick={() =>
+								alert(
+									'DINO IS THE BEST CODER EVER! PLUS HE IS THE BEST IN ESCAPING ESCAPE ROOMS! LOL'
+								)
+							}
+						/>
 					</div>
 				</div>
 			</div>
