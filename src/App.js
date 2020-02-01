@@ -1,28 +1,36 @@
 import React, { Component } from 'react'
 import Card from './Card'
 import MessageModal from './MessageModal'
+import SettingsModal from './SettingsModal'
 import { shuffle } from './helpers'
 import uuid from 'uuid/v4'
 import './App.css'
 
 class App extends Component {
 	static defaultProps = {
-		gameModes: [
-			// { difficulty: 'easy', numCards: 16 },
-			// { difficulty: 'medium', numCards: 36 },
-			// { difficulty: 'hard', numCards: 64 }
-		],
 		cardFaces: [
+			// first 8
 			{ name: 'apple', faClass: 'fab fa-apple' },
-			{ name: 'windows', faClass: 'fab fa-windows' },
 			{ name: 'code', faClass: 'fas fa-code' },
+			{ name: 'chrome', faClass: 'fab fa-chrome' },
 			{ name: 'react', faClass: 'fab fa-react' },
-			{ name: 'vue', faClass: 'fab fa-vuejs' },
+			{ name: 'html', faClass: 'fab fa-html5' },
+			{ name: 'github', faClass: 'fab fa-github' },
 			{ name: 'js', faClass: 'fab fa-js-square' },
-			{ name: 'python', faClass: 'fab fa-python' },
-			{ name: 'github', faClass: 'fab fa-github' }
+			{ name: 'wifi', faClass: 'fas fa-wifi' },
+			// first 12
+			{ name: 'windows', faClass: 'fab fa-windows' },
+			{ name: 'branch', faClass: 'fas fa-code-branch' },
+			{ name: 'laptop', faClass: 'fas fa-laptop-code' },
+			{ name: 'keyboard', faClass: 'fas fa-keyboard' },
+			// first 16
+			{ name: 'css', faClass: 'fab fa-css3' },
+			{ name: 'node', faClass: 'fab fa-node-js' },
+			{ name: 'spotify', faClass: 'fab fa-spotify' },
+			{ name: 'bug', faClass: 'fas fa-bug' }
 		]
 	}
+	// { name: 'python', faClass: 'fab fa-python' },
 
 	constructor(props) {
 		super(props)
@@ -34,19 +42,23 @@ class App extends Component {
 			gameStartTime: '',
 			gameEndTime: '',
 			gameTime: 0,
-			gamesPlayed: 0
+			gamesPlayed: 0,
+			showSettings: false,
+			deckSize: 16
 		}
 		this.flip = this.flip.bind(this)
 		this.handleReset = this.handleReset.bind(this)
+		this.showSettings = this.showSettings.bind(this)
+		this.applySettings = this.applySettings.bind(this)
 	}
 
-	async startNewGame(gameMode) {
+	async startNewGame(deckSize) {
 		// DOWNFLIPS ALL FLIPPED CARDS FOR NEW GAME
+		let amtOfPairs = deckSize === undefined ? 8 : deckSize / 2
 
-		console.log('isGameOver? line50', this.state.isGameOver)
 		let newCards = [
-			...this.props.cardFaces.slice(0, 8),
-			...this.props.cardFaces.slice(0, 8)
+			...this.props.cardFaces.slice(0, amtOfPairs),
+			...this.props.cardFaces.slice(0, amtOfPairs)
 		].map((card) => ({
 			...card,
 			id: uuid(),
@@ -54,8 +66,8 @@ class App extends Component {
 			isMatched: false,
 			isDisabled: false
 		}))
-		this.setState({
-			unmatchedCards: newCards, //shuffle(newCards),
+		await this.setState({
+			unmatchedCards: /* newCards,*/ shuffle(newCards),
 			isGameOver: false,
 			flipCount: 0,
 			gameStartTime: '',
@@ -148,11 +160,23 @@ class App extends Component {
 				card.isFlipped = false
 				card.isMatched = false
 				return card
-			})
+			}),
+			isGameOver: false
 		}))
 		setTimeout(() => {
 			this.startNewGame()
 		}, 1000)
+	}
+
+	showSettings() {
+		this.setState((st) => ({ showSettings: !st.showSettings }))
+	}
+
+	applySettings(sizeSelected) {
+		this.setState({ deckSize: sizeSelected })
+		this.showSettings()
+		this.startNewGame(sizeSelected)
+		console.log('size ', typeof sizeSelected)
 	}
 
 	render() {
@@ -167,11 +191,19 @@ class App extends Component {
 		))
 		return (
 			<div className='App'>
-				<MessageModal //refactor! condense to single prop 'state' and update corresponding lines of code
+				<MessageModal //refactor! condense to single prop 'gameState' and update corresponding lines of code
 					gameState={this.state.isGameOver}
 					time={this.state.gameTime}
 					reset={this.handleReset}
 					gamesPlayed={this.state.gamesPlayed}
+					settings={() => console.log('hiss')}
+					// settings={this.showSettings}
+				/>
+				<SettingsModal
+					settings={this.state.showSettings}
+					apply={this.applySettings}
+					deckSize={this.state.deckSize}
+					cancel={this.showSettings}
 				/>
 				<div className='game-container'>
 					<div className='banner-container'></div>
@@ -183,12 +215,7 @@ class App extends Component {
 							onClick={this.handleReset}
 						/>
 
-						<i
-							className='fas fa-cog'
-							onClick={() =>
-								alert('STOP PUSHING BUTTONS THAT DONT WORK!!')
-							}
-						/>
+						<i className='fas fa-cog' onClick={this.showSettings} />
 
 						<i
 							className='fas fa-at'

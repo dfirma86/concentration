@@ -28,28 +28,25 @@ export default class MessageModal extends Component {
 					// 		: 'flex'
 				}}
 			>
-				<div className='messageBox'>
-					<div>
-						<h2 className='modal-message'>COMPLETE!</h2>
+				<div className='message-box'>
+					<div className='modal-message complete'>
+						<h2>COMPLETE!</h2>
 					</div>
-					<div>
-						<h2 className='modal-message'>TIME: {time}</h2>
+					<div className='modal-message time'>
+						<h2>time: {time}</h2>
 					</div>
-					<div>
-						<h2 className='modal-message'>TRY AGAIN?</h2>
-					</div>
-
-					<div className='button-container'>
-						<i
-							className='fas fa-check'
-							onClick={this.handleReset}
-						></i>
-						<i
-							className='fas fa-cog'
-							onClick={() =>
-								alert('THIS BUTTON DOESNT WORK YET SUCKA!')
-							}
-						></i>
+					<div className='modal-message play-again'>
+						<h3>play again?</h3>
+						<div className='message-modal-button-container'>
+							<i
+								className='fas fa-check'
+								onClick={this.handleReset}
+							></i>
+							<i
+								className='fas fa-cog'
+								onClick={this.props.settings}
+							></i>
+						</div>
 					</div>
 				</div>
 			</div>

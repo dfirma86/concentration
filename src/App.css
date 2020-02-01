@@ -8,6 +8,9 @@
 	height: 100%;
 	width: 100%;
 	background-color: #222831;
+	cursor: default;
+	font-family: 'Titillium Web', sans-serif;
+	color: white;
 }
 .game-container {
 	/* align-items: center; */
@@ -29,13 +32,9 @@
 	width: 29rem;
 }
 h1 {
-	font-family: 'Titillium Web', sans-serif;
-	margin: 0;
-	color: white;
 	font-size: 3.5rem;
-	cursor: default;
 }
 i {
-	color: white;
+	cursor: pointer;
 	font-size: 4rem;
 }
