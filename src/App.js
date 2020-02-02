@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Card from './Card'
 import MessageModal from './MessageModal'
 import SettingsModal from './SettingsModal'
-import { shuffle } from './helpers'
+import { shuffle, getWidth } from './helpers'
 import uuid from 'uuid/v4'
 import './App.css'
 
@@ -54,11 +54,12 @@ class App extends Component {
 
 	async startNewGame(deckSize) {
 		// DOWNFLIPS ALL FLIPPED CARDS FOR NEW GAME
-		let amtOfPairs = deckSize === undefined ? 8 : deckSize / 2
+		let amtOfPairs =
+			deckSize === undefined ? this.state.deckSize : deckSize
 
 		let newCards = [
-			...this.props.cardFaces.slice(0, amtOfPairs),
-			...this.props.cardFaces.slice(0, amtOfPairs)
+			...this.props.cardFaces.slice(0, amtOfPairs / 2),
+			...this.props.cardFaces.slice(0, amtOfPairs / 2)
 		].map((card) => ({
 			...card,
 			id: uuid(),
@@ -189,6 +190,7 @@ class App extends Component {
 				startTimer={this.startTimer}
 			/>
 		))
+		let cardsContainerWidth = getWidth(cards)
 		return (
 			<div className='App'>
 				<MessageModal //refactor! condense to single prop 'gameState' and update corresponding lines of code
@@ -206,9 +208,16 @@ class App extends Component {
 					cancel={this.showSettings}
 				/>
 				<div className='game-container'>
-					<div className='banner-container'></div>
-					<h1>CONCENTRATION</h1>
-					<div className='cards-container'>{cards}</div>
+					<div className='banner-container'>
+						<h1>CONCENTRATION</h1>
+					</div>
+
+					<div
+						className='cards-container'
+						style={{ width: cardsContainerWidth }}
+					>
+						{cards}
+					</div>
 					<div className='button-container'>
 						<i
 							className='fas fa-power-off'

@@ -1,6 +1,7 @@
+html {
+	/* font-size: 10px; */
+}
 .App {
-	display: flex;
-	justify-content: center;
 	position: absolute;
 	text-align: center;
 	top: 0;
@@ -12,17 +13,20 @@
 	font-family: 'Titillium Web', sans-serif;
 	color: white;
 }
-.game-container {
-	/* align-items: center; */
-	/* display: */
+.banner-container {
+	display: flex;
+	justify-content: center;
 }
 
 .cards-container {
-	margin: auto;
+	/* margin: auto; */
 	display: inline-flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	width: 29rem;
+	width: 31rem;
+	/* width: 26rem; small 26-31 */
+	/* width: 38rem; medium 38-44*/
+	/* width: 51rem; large 51-56 */
 }
 .button-container {
 	margin: auto;
@@ -33,6 +37,10 @@
 }
 h1 {
 	font-size: 3.5rem;
+	transition: all 0.2s ease-out;
+}
+h1:hover {
+	letter-spacing: 1rem;
 }
 i {
 	cursor: pointer;

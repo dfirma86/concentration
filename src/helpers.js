@@ -17,4 +17,11 @@ function toSeconds(num) {
 	return numArr.join('')
 }
 
-export { shuffle, toSeconds }
+function getWidth(arr) {
+	if (arr.length === 16) return '26rem'
+	if (arr.length === 24) return '38rem'
+	if (arr.length === 32) return '51rem'
+}
+
+
+export { shuffle, toSeconds, getWidth }
