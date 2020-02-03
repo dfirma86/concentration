@@ -19,7 +19,6 @@ html {
 }
 
 .cards-container {
-	/* margin: auto; */
 	display: inline-flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -28,21 +27,56 @@ html {
 	/* width: 38rem; medium 38-44*/
 	/* width: 51rem; large 51-56 */
 }
-.button-container {
-	margin: auto;
-	margin-top: 0.85rem;
+.buttons-container {
 	display: flex;
+	margin: auto;
 	justify-content: space-evenly;
-	width: 29rem;
+	align-items: center;
+	width: 31rem;
+	height: 6rem;
 }
 h1 {
-	font-size: 3.5rem;
+	font-size: 3rem;
 	transition: all 0.2s ease-out;
 }
 h1:hover {
 	letter-spacing: 1rem;
 }
+
 i {
-	cursor: pointer;
 	font-size: 4rem;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 3rem;
+	height: 3rem;
+	cursor: pointer;
+}
+
+.fa-power-off {
+	transition: 0.15s ease-in;
+	-webkit-transition: 0.15s ease-in;
+}
+
+.fa-power-off:hover {
+	color: red;
+	text-shadow: 0px 0px 2rem #c54040;
+	font-size: 5rem;
+}
+.fa-cog {
+	transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	transition: 0.3s ease-in;
+	-webkit-transition: 0.3s ease-in;
+	color: darkgrey;
+}
+
+.fa-cog:hover {
+	transform: rotate(60deg);
+	-webkit-transform: rotate(60deg);
+	font-size: 5em;
+	/* position: absolute; */
 }

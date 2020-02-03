@@ -58,8 +58,10 @@ class App extends Component {
 			deckSize === undefined ? this.state.deckSize : deckSize
 
 		let newCards = [
-			...this.props.cardFaces.slice(0, amtOfPairs / 2),
-			...this.props.cardFaces.slice(0, amtOfPairs / 2)
+			// ...this.props.cardFaces.slice(0, amtOfPairs / 2),
+			// ...this.props.cardFaces.slice(0, amtOfPairs / 2)
+			...this.props.cardFaces.slice(0, 1),
+			...this.props.cardFaces.slice(0, 1)
 		].map((card) => ({
 			...card,
 			id: uuid(),
@@ -68,7 +70,7 @@ class App extends Component {
 			isDisabled: false
 		}))
 		await this.setState({
-			unmatchedCards: /* newCards,*/ shuffle(newCards),
+			unmatchedCards: newCards, //shuffle(newCards),
 			isGameOver: false,
 			flipCount: 0,
 			gameStartTime: '',
@@ -82,9 +84,11 @@ class App extends Component {
 	}
 
 	componentDidUpdate() {
+		// HANDLE WIN
 		let isMatchedArr = this.state.unmatchedCards.map(
 			(card) => card.isMatched
 		)
+
 		if (!isMatchedArr.includes(false) && !this.state.isGameOver) {
 			this.setState((st) => {
 				let endTime = new Date()
@@ -170,7 +174,10 @@ class App extends Component {
 	}
 
 	showSettings() {
-		this.setState((st) => ({ showSettings: !st.showSettings }))
+		// this.setState((st) => ({ showSettings: !st.showSettings }))
+		this.setState((st) => ({
+			showSettings: !st.showSettings
+		}))
 	}
 
 	applySettings(sizeSelected) {
@@ -198,7 +205,7 @@ class App extends Component {
 					time={this.state.gameTime}
 					reset={this.handleReset}
 					gamesPlayed={this.state.gamesPlayed}
-					settings={() => console.log('hiss')}
+					settings={this.showSettings}
 					// settings={this.showSettings}
 				/>
 				<SettingsModal
@@ -218,22 +225,16 @@ class App extends Component {
 					>
 						{cards}
 					</div>
-					<div className='button-container'>
-						<i
-							className='fas fa-power-off'
-							onClick={this.handleReset}
-						/>
-
-						<i className='fas fa-cog' onClick={this.showSettings} />
-
-						<i
-							className='fas fa-at'
-							onClick={() =>
-								alert(
-									'DINO IS THE BEST CODER EVER! PLUS HE IS THE BEST IN ESCAPING ESCAPE ROOMS! LOL'
-								)
-							}
-						/>
+					<div className='buttons-container'>
+						<div className='button'>
+							<i
+								className='fas fa-power-off'
+								onClick={this.handleReset}
+							/>
+						</div>
+						<div className='button'>
+							<i className='fas fa-cog' onClick={this.showSettings} />
+						</div>
 					</div>
 				</div>
 			</div>
