@@ -21,6 +21,9 @@ export default class SettingsModal extends Component {
 			curDeckSize: this.props.deckSizes[size].cardAmount
 		})
 	}
+	componentDidUnmount() {
+		console.log('hdashfoeh;a')
+	}
 	handleSubmit() {
 		this.props.apply(this.state.curDeckSize)
 	}
@@ -28,7 +31,6 @@ export default class SettingsModal extends Component {
 		this.props.cancel()
 	}
 	render() {
-		// console.log('from modal', this.props.settings)
 		return (
 			<div
 				className='SettingsModal'
@@ -61,19 +63,43 @@ export default class SettingsModal extends Component {
 								className='option-button small'
 								onClick={() => this.handleClick('small')}
 							>
-								<h3>small</h3>
+								<h3
+									style={
+										this.state.curDeckSize === 16
+											? { color: 'purple' }
+											: null
+									}
+								>
+									small
+								</h3>
 							</div>
 							<div
 								className='option-button medium'
 								onClick={() => this.handleClick('medium')}
 							>
-								<h3>medium</h3>
+								<h3
+									style={
+										this.state.curDeckSize === 24
+											? { color: 'purple' }
+											: null
+									}
+								>
+									medium
+								</h3>
 							</div>
 							<div
 								className='option-button large'
 								onClick={() => this.handleClick('large')}
 							>
-								<h3>large</h3>
+								<h3
+									style={
+										this.state.curDeckSize === 32
+											? { color: 'purple' }
+											: null
+									}
+								>
+									large
+								</h3>
 							</div>
 						</div>
 					</div>

@@ -35,7 +35,7 @@ export default class MessageModal extends Component {
 								onClick={this.handleReset}
 							></i>
 							<i
-								className='fas fa-cog'
+								className='fas fa-cog modal-message-icon'
 								onClick={this.props.settings}
 							></i>
 						</div>

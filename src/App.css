@@ -66,7 +66,7 @@ i {
 	text-shadow: 0px 0px 2rem #c54040;
 	font-size: 5rem;
 }
-.fa-cog {
+.main-settings-icon {
 	transform: rotate(0deg);
 	-webkit-transform: rotate(0deg);
 	transition: 0.3s ease-in;
@@ -74,9 +74,8 @@ i {
 	color: darkgrey;
 }
 
-.fa-cog:hover {
+.main-settings-icon:hover {
 	transform: rotate(60deg);
 	-webkit-transform: rotate(60deg);
 	font-size: 5em;
-	/* position: absolute; */
 }

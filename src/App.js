@@ -60,8 +60,8 @@ class App extends Component {
 		let newCards = [
 			// ...this.props.cardFaces.slice(0, amtOfPairs / 2),
 			// ...this.props.cardFaces.slice(0, amtOfPairs / 2)
-			...this.props.cardFaces.slice(0, 1),
-			...this.props.cardFaces.slice(0, 1)
+			...this.props.cardFaces.slice(0, 1), // test
+			...this.props.cardFaces.slice(0, 1) // test
 		].map((card) => ({
 			...card,
 			id: uuid(),
@@ -70,7 +70,7 @@ class App extends Component {
 			isDisabled: false
 		}))
 		await this.setState({
-			unmatchedCards: newCards, //shuffle(newCards),
+			unmatchedCards: shuffle(newCards),
 			isGameOver: false,
 			flipCount: 0,
 			gameStartTime: '',
@@ -233,7 +233,7 @@ class App extends Component {
 							/>
 						</div>
 						<div className='button'>
-							<i className='fas fa-cog' onClick={this.showSettings} />
+							<i className='fas fa-cog main-settings-icon' onClick={this.showSettings} />
 						</div>
 					</div>
 				</div>
