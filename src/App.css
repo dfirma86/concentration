@@ -8,10 +8,10 @@ html {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: #222831;
+	background-color: #27233a;
 	cursor: default;
 	font-family: 'Titillium Web', sans-serif;
-	color: white;
+	color: #eaefd3;
 }
 .banner-container {
 	display: flex;
@@ -39,9 +39,9 @@ h1 {
 	font-size: 3rem;
 	transition: all 0.2s ease-out;
 }
-h1:hover {
+/* h1:hover {
 	letter-spacing: 1rem;
-}
+} */
 
 i {
 	font-size: 4rem;
@@ -71,11 +71,11 @@ i {
 	-webkit-transform: rotate(0deg);
 	transition: 0.3s ease-in;
 	-webkit-transition: 0.3s ease-in;
-	color: darkgrey;
 }
 
 .main-settings-icon:hover {
 	transform: rotate(60deg);
 	-webkit-transform: rotate(60deg);
 	font-size: 5em;
+	color: gray;
 }

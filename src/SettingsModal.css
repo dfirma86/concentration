@@ -34,6 +34,11 @@
 	padding: 0 3em;
 }
 
+.option-button {
+	transition: 0.1s linear;
+	cursor: pointer;
+}
+
 .settings-modal-button-container {
 	display: flex;
 	padding: 0 8rem;
@@ -41,14 +46,14 @@
 }
 
 .settings-modal-button-container i {
-	/* color: blue; */
+	cursor: pointer;
 	font-size: 4.5rem;
 }
 
-.settings-modal-button-container .fa-times {
+.fa-times {
 	padding-right: 0.7rem;
+	transition: 0.1s linear;
 }
-
-.option-button {
-	cursor: pointer;
+.fa-times:hover {
+	color: orange;
 }

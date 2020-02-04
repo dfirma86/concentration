@@ -11,31 +11,28 @@ export default class SettingsModal extends Component {
 	}
 	constructor(props) {
 		super(props)
-		this.state = { curDeckSize: this.props.deckSize }
+		this.state = {
+			curCardAmount: this.props.gameState.deckSize
+		}
 		this.handleClick = this.handleClick.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleCancel = this.handleCancel.bind(this)
 	}
-	async handleClick(size) {
-		await this.setState({
-			curDeckSize: this.props.deckSizes[size].cardAmount
+	handleClick(size) {
+		this.setState({
+			curCardAmount: this.props.deckSizes[size].cardAmount
 		})
 	}
-	componentDidUnmount() {
-		console.log('hdashfoeh;a')
-	}
+
 	handleSubmit() {
-		this.props.apply(this.state.curDeckSize)
+		this.props.apply(this.state.curCardAmount)
 	}
 	handleCancel() {
 		this.props.cancel()
 	}
 	render() {
 		return (
-			<div
-				className='SettingsModal'
-				style={{ display: !this.props.settings ? 'none' : 'flex' }}
-			>
+			<div className='SettingsModal'>
 				<div className='settings-box'>
 					<div className='difficulty-container'>
 						<div className='difficulty-label label'>
@@ -43,13 +40,19 @@ export default class SettingsModal extends Component {
 						</div>
 						<div className='difficulty-options'>
 							<div className='option-button easy'>
-								<h3>easy</h3>
+								<h3 onClick={() => alert('UNDER CONSTRUCTION')}>
+									easy
+								</h3>
 							</div>
 							<div className='option-button normal'>
-								<h3>normal</h3>
+								<h3 onClick={() => alert('UNDER CONSTRUCTION')}>
+									normal
+								</h3>
 							</div>
 							<div className='option-button hard'>
-								<h3>hard</h3>
+								<h3 onClick={() => alert('UNDER CONSTRUCTION')}>
+									hard
+								</h3>
 							</div>
 						</div>
 					</div>
@@ -62,44 +65,35 @@ export default class SettingsModal extends Component {
 							<div
 								className='option-button small'
 								onClick={() => this.handleClick('small')}
+								style={
+									this.state.curCardAmount === 16
+										? { color: 'purple' }
+										: null
+								}
 							>
-								<h3
-									style={
-										this.state.curDeckSize === 16
-											? { color: 'purple' }
-											: null
-									}
-								>
-									small
-								</h3>
+								<h3>small</h3>
 							</div>
 							<div
 								className='option-button medium'
 								onClick={() => this.handleClick('medium')}
+								style={
+									this.state.curCardAmount === 24
+										? { color: 'purple' }
+										: null
+								}
 							>
-								<h3
-									style={
-										this.state.curDeckSize === 24
-											? { color: 'purple' }
-											: null
-									}
-								>
-									medium
-								</h3>
+								<h3>medium</h3>
 							</div>
 							<div
 								className='option-button large'
 								onClick={() => this.handleClick('large')}
+								style={
+									this.state.curCardAmount === 32
+										? { color: 'purple' }
+										: null
+								}
 							>
-								<h3
-									style={
-										this.state.curDeckSize === 32
-											? { color: 'purple' }
-											: null
-									}
-								>
-									large
-								</h3>
+								<h3>large</h3>
 							</div>
 						</div>
 					</div>

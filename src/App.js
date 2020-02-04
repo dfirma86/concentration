@@ -43,12 +43,12 @@ class App extends Component {
 			gameEndTime: '',
 			gameTime: 0,
 			gamesPlayed: 0,
-			showSettings: false,
+			isSettingsOn: false,
 			deckSize: 16
 		}
 		this.flip = this.flip.bind(this)
 		this.handleReset = this.handleReset.bind(this)
-		this.showSettings = this.showSettings.bind(this)
+		this.toggleSettings = this.toggleSettings.bind(this)
 		this.applySettings = this.applySettings.bind(this)
 	}
 
@@ -58,10 +58,10 @@ class App extends Component {
 			deckSize === undefined ? this.state.deckSize : deckSize
 
 		let newCards = [
-			// ...this.props.cardFaces.slice(0, amtOfPairs / 2),
-			// ...this.props.cardFaces.slice(0, amtOfPairs / 2)
-			...this.props.cardFaces.slice(0, 1), // test
-			...this.props.cardFaces.slice(0, 1) // test
+			...this.props.cardFaces.slice(0, amtOfPairs / 2),
+			...this.props.cardFaces.slice(0, amtOfPairs / 2)
+			// ...this.props.cardFaces.slice(0, 2), // test
+			// ...this.props.cardFaces.slice(0, 2) // test
 		].map((card) => ({
 			...card,
 			id: uuid(),
@@ -173,18 +173,17 @@ class App extends Component {
 		}, 1000)
 	}
 
-	showSettings() {
-		// this.setState((st) => ({ showSettings: !st.showSettings }))
+	toggleSettings() {
+		// this.setState((st) => ({ toggleSettings: !st.toggleSettings }))
 		this.setState((st) => ({
-			showSettings: !st.showSettings
+			isSettingsOn: !st.isSettingsOn
 		}))
 	}
 
 	applySettings(sizeSelected) {
 		this.setState({ deckSize: sizeSelected })
-		this.showSettings()
+		this.toggleSettings()
 		this.startNewGame(sizeSelected)
-		console.log('size ', typeof sizeSelected)
 	}
 
 	render() {
@@ -200,20 +199,22 @@ class App extends Component {
 		let cardsContainerWidth = getWidth(cards)
 		return (
 			<div className='App'>
-				<MessageModal //refactor! condense to single prop 'gameState' and update corresponding lines of code
-					gameState={this.state.isGameOver}
-					time={this.state.gameTime}
-					reset={this.handleReset}
-					gamesPlayed={this.state.gamesPlayed}
-					settings={this.showSettings}
-					// settings={this.showSettings}
-				/>
-				<SettingsModal
-					settings={this.state.showSettings}
-					apply={this.applySettings}
-					deckSize={this.state.deckSize}
-					cancel={this.showSettings}
-				/>
+				{this.state.isSettingsOn && (
+					<SettingsModal
+						gameState={this.state}
+						apply={this.applySettings}
+						cancel={this.toggleSettings}
+					/>
+				)}
+
+				{this.state.isGameOver && !this.state.isSettingsOn && (
+					<MessageModal //refactor! condense to single prop 'gameState' and update corresponding lines of code
+						gameState={this.state}
+						reset={this.handleReset}
+						showSettings={this.toggleSettings}
+					/>
+				)}
+
 				<div className='game-container'>
 					<div className='banner-container'>
 						<h1>CONCENTRATION</h1>
@@ -233,7 +234,10 @@ class App extends Component {
 							/>
 						</div>
 						<div className='button'>
-							<i className='fas fa-cog main-settings-icon' onClick={this.showSettings} />
+							<i
+								className='fas fa-cog main-settings-icon'
+								onClick={this.toggleSettings}
+							/>
 						</div>
 					</div>
 				</div>

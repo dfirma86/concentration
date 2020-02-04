@@ -12,14 +12,9 @@ export default class MessageModal extends Component {
 		this.props.reset()
 	}
 	render() {
-		let time = `${toSeconds(this.props.time)} sec.`
+		let time = `${toSeconds(this.props.gameState.gameTime)} sec.`
 		return (
-			<div
-				className='MessageModal'
-				style={{
-					display: !this.props.gameState ? 'none' : 'flex'
-				}}
-			>
+			<div className='MessageModal'>
 				<div className='message-box'>
 					<div className='modal-message complete'>
 						<h2>COMPLETE!</h2>
@@ -36,7 +31,7 @@ export default class MessageModal extends Component {
 							></i>
 							<i
 								className='fas fa-cog modal-message-icon'
-								onClick={this.props.settings}
+								onClick={this.props.showSettings}
 							></i>
 						</div>
 					</div>

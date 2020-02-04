@@ -44,31 +44,23 @@
 }
 
 .message-modal-button-container i {
-	font-size: 4rem;
+	font-size: 4.5rem;
 	cursor: pointer;
 }
 
 .fa-check {
-	transform: rotate(10deg);
-	-webkit-transform: rotate(10deg);
-	transition: 0.08s ease-in;
-	-webkit-transition: 0.08s ease-in;
+	transition: 0.1s ease-in;
+	-webkit-transition: 0.1s ease-in;
 }
 .fa-check:hover {
-	transform: rotate(-10deg);
-	-webkit-transform: rotate(-10deg);
 	color: green;
 }
 
 .modal-message-icon {
-	transform: rotate(0deg);
-	-webkit-transform: rotate(0deg);
-	transition: 0.3s ease-in;
-	-webkit-transition: 0.3s ease-in;
+	transition: 0.1s ease-in;
+	-webkit-transition: 0.1s ease-in;
 }
 .modal-message-icon:hover {
-	transform: rotate(60deg);
-	-webkit-transform: rotate(60deg);
 	color: grey;
 }
 
